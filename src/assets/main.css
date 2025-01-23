@@ -144,12 +144,19 @@
 }
 
 
-.checkbox-label input {
+.checkbox-input {
   margin-right: 15px;
 }
 
 .checkbox-label span {
   font-size: 1.2rem;
+}
+
+.not-done {
+  text-decoration: none;
+}
+.done {
+  text-decoration: line-through;
 }
 
 .done .checkbox-label {

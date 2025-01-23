@@ -3,7 +3,11 @@
   import { TaskList } from '../FoodData.ts'
 
   const tasks = ref(TaskList)
-  const doubleClick = ref(false)
+
+  const clickHandler = (id) => {
+    console.log(tasks.value[id].isDone)
+    tasks.value[id].isDone = !tasks.value[id].isDone
+  }
 
   const addTask = () => {
     console.log('追加処理です')
@@ -15,20 +19,20 @@
 </script>
 
 <template>
-  <div className="input-form">
-    <div className="inner">
-      <input type="text" className="input" placeholder="TODOを入力してください。" />
-      <button @click="addTask" className="btn is-primary">追加</button>
+  <div class="input-form">
+    <div class="inner">
+      <input type="text" class="input" placeholder="TODOを入力してください。" />
+      <button @click="addTask" class="btn is-primary">追加</button>
     </div>
   </div>
-  <div className="inner">
-    <ul className="task-list">
+  <div class="inner">
+    <ul class="task-list">
       <li v-for="task in tasks" :key="task.name">
-        <label className="checkbox-label">
-          <input type="checkbox" className="checkbox-input" />
-          <span v-if="doubleClick === false">{{ task.name }}</span>
+        <input type="checkbox" class="checkbox-input" :checked="task.isDone" />
+        <label class="checkbox-label" @click="clickHandler(task.id)" :class="{ 'done': task.isDone, 'not-done': !task.isDone }">
+          <span>{{ task.name }}</span>
         </label>
-        <button @click="deleteTask" className="btn is-delete">削除</button>
+        <button @click="deleteTask" class="btn is-delete">削除</button>
       </li>
     </ul>
   </div>
