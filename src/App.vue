@@ -3,6 +3,7 @@
   import { TaskList } from '../FoodData.ts'
 
   const tasks = ref(TaskList)
+  const newTask = ref('')
 
   const clickHandler = (id: number) => {
     console.log(tasks.value[id].isDone)
@@ -10,7 +11,16 @@
   }
 
   const addTask = () => {
-    console.log('追加処理です')
+    // 後ろの要素を取得し、返り値が配列のためスカラー値として[0]を指定
+    const lastId = tasks.value.slice(-1)[0].id
+
+    tasks.value.push({
+      id: lastId + 1,
+      name: newTask.value,
+      isDone: false
+    });
+    // 追加するタスクを初期化
+    newTask.value = ''
   }
   const deleteTask = (deleteId: number) => {
     tasks.value = tasks.value.filter((task) => {
@@ -23,7 +33,7 @@
 <template>
   <div class="input-form">
     <div class="inner">
-      <input type="text" class="input" placeholder="TODOを入力してください。" />
+      <input type="text" name="add" v-model="newTask" class="input" placeholder="TODOを入力してください。" />
       <button @click="addTask" class="btn is-primary">追加</button>
     </div>
   </div>
