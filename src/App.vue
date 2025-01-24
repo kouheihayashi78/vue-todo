@@ -4,7 +4,7 @@
 
   const tasks = ref(TaskList)
 
-  const clickHandler = (id) => {
+  const clickHandler = (id: number) => {
     console.log(tasks.value[id].isDone)
     tasks.value[id].isDone = !tasks.value[id].isDone
   }
@@ -12,8 +12,10 @@
   const addTask = () => {
     console.log('追加処理です')
   }
-  const deleteTask = () => {
-    console.log('削除処理です')
+  const deleteTask = (deleteId: number) => {
+    tasks.value = tasks.value.filter((task) => {
+      return task.id !== deleteId
+    })
   }
 
 </script>
@@ -32,7 +34,7 @@
         <label class="checkbox-label" @click="clickHandler(task.id)" :class="{ 'done': task.isDone, 'not-done': !task.isDone }">
           <span>{{ task.name }}</span>
         </label>
-        <button @click="deleteTask" class="btn is-delete">削除</button>
+        <button @click="deleteTask(task.id)" class="btn is-delete">削除</button>
       </li>
     </ul>
   </div>
