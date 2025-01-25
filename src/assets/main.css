@@ -146,9 +146,10 @@
 
 .checkbox-input {
   margin-right: 15px;
+  cursor: pointer;
 }
 
-.checkbox-label span {
+.checkbox-label {
   font-size: 1.2rem;
 }
 
