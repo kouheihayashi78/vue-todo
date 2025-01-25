@@ -11,6 +11,9 @@
   }
 
   const addTask = () => {
+    // タスクの入力されていないなら何もしない
+    if(newTask.value === '') return
+
     // 後ろの要素を取得し、返り値が配列のためスカラー値として[0]を指定
     const lastId = tasks.value.slice(-1)[0].id
 
@@ -33,7 +36,7 @@
 <template>
   <div class="input-form">
     <div class="inner">
-      <input type="text" name="add" v-model="newTask" class="input" placeholder="TODOを入力してください。" />
+      <input type="text" name="add" v-model="newTask" @keypress.enter="addTask" class="input" placeholder="TODOを入力してください。" />
       <button @click="addTask" class="btn is-primary">追加</button>
     </div>
   </div>
