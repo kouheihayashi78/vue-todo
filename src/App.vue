@@ -14,21 +14,17 @@
     // タスクの入力されていないなら何もしない
     if(newTask.value === '') return
 
-    // 後ろの要素を取得し、返り値が配列のためスカラー値として[0]を指定
-    const lastId = tasks.value.slice(-1)[0].id
-
     tasks.value.push({
-      id: lastId + 1,
       name: newTask.value,
       isDone: false
     });
     // 追加するタスクを初期化
     newTask.value = ''
   }
+
   const deleteTask = (deleteId: number) => {
-    tasks.value = tasks.value.filter((task) => {
-      return task.id !== deleteId
-    })
+    // spliceの第一引数で削除したい配列のインデックスを指定し、第二引数に取り除く要素の個数を指定
+    tasks.value.splice(deleteId, 1);
   }
 
 </script>
@@ -42,12 +38,12 @@
   </div>
   <div class="inner">
     <ul class="task-list">
-      <li v-for="task in tasks" :key="task.name">
+      <li v-for="(task, index) in tasks" :key="task.name">
         <input type="checkbox" class="checkbox-input" :checked="task.isDone" />
-        <label class="checkbox-label" @click="clickHandler(task.id)" :class="{ 'done': task.isDone, 'not-done': !task.isDone }">
+        <label class="checkbox-label" @click="clickHandler(index)" :class="{ 'done': task.isDone, 'not-done': !task.isDone }">
           <span>{{ task.name }}</span>
         </label>
-        <button @click="deleteTask(task.id)" class="btn is-delete">削除</button>
+        <button @click="deleteTask(index)" class="btn is-delete">削除</button>
       </li>
     </ul>
   </div>
